@@ -1,31 +1,42 @@
+// imports
 const http = require('http');
 const url = require('url');
-const htmlHandler = require('./htmlHandler.js');
+const clientHandler = require('./clientHandler.js');
 const methodHandler = require('./methodHandler.js');
 
+// port definition
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
+// struct for GET requests
 const getStruct = {
-	'/': htmlHandler.getIndex,
-	'/style.css': htmlHandler.getStyle,
-	default: htmlHandler.getIndex,
+	'/': clientHandler.getIndex,
+	'/style.css': clientHandler.getStyle,
+	'/transpiledScript.js': clientHandler.getScript,
+	default: clientHandler.getIndex,
 
-	'/getRecipes': methodHandler.getRecipes,
-	'/notFound': methodHandler.notFound
+	'/getRecipe': methodHandler.getRecipe,
+	'/getAllRecipes': methodHandler.getAllRecipes,
+	notFound: methodHandler.notFound
 };
 
+// struct for HEAD requests
 const headStruct = {
-	'/getRecipes': methodHandler.getRecipesMeta,
-	'/notFound': methodHandler.notFoundMeta
+	'/getRecipe': methodHandler.getRecipeMeta,
+	'/getAllRecipes': methodHandler.getAllRecipesMeta,
+	notFound: methodHandler.notFoundMeta
 };
 
+// struct for POST requests
 const postStruct = {
 	'/addRecipe': methodHandler.addRecipe
 };
 
+// callback function for server requests
 const onRequest = (request, response) => {
+	// parsing url
 	const parsedUrl = url.parse(request.url);
 
+	// based on request method, run method according to respective struct
 	switch (request.method) {
 		case 'GET':
 			if (getStruct[parsedUrl.pathname]) {
@@ -44,4 +55,5 @@ const onRequest = (request, response) => {
 	}
 };
 
+// creating server instance
 http.createServer(onRequest).listen(port);

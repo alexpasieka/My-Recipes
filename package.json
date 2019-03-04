@@ -1,22 +1,28 @@
 {
-  "name": "http-api-assignment-ii-master",
+  "name": "my-recipes",
   "version": "1.0.0",
-  "description": "HTTP API Assignment II",
+  "description": "A web application that stores recipes.",
   "main": "server.js",
   "engines": {
     "node": "11.3.0",
     "npm": "6.4.1"
   },
   "scripts": {
-    "start": "node ./src/server.js",
-    "pretest": "eslint ./src --fix",
-    "test": "echo \"Test Complete\""
+    "start": "node ./server/app.js",
+    "pretest": "eslint ./server --fix",
+    "test": "echo \"Test Complete\"",
+    "build": "babel ./client/script.js --out-file ./client/transpiledScript.js",
+    "watch": "babel --watch ./client/script.js --out-file ./client/transpiledScript.js",
+    "nodemon": "nodemon --watch ./server ./server/app.js"
   },
   "author": "Alex Pasieka",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.16.0"
+    "eslint-plugin-import": "^2.16.0",
+    "nodemon": "^1.18.10"
   }
 }

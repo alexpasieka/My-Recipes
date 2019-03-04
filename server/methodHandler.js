@@ -1,3 +1,4 @@
+const url = require('url');
 const query = require('querystring');
 
 const recipes = {};
@@ -13,14 +14,29 @@ const respondJSONMeta = (request, response, status) => {
 	response.end();
 };
 
-const getRecipes = (request, response) => {
+// get selected recipe
+const getRecipe = (request, response) => {
+	const parsedUrl = url.parse(request.url);
+	const queryString = parsedUrl.query;
+
+	const recipeName = query.parse(queryString).name;
+	respondJSON(request, response, 200, recipes[recipeName]);
+};
+
+// return a 200 status code
+const getRecipeMeta = (request, response) => {
+	respondJSONMeta(request, response, 200);
+};
+
+const getAllRecipes = (request, response) => {
 	const responseJSON = {
 		recipes,
 	};
 	respondJSON(request, response, 200, responseJSON);
 };
 
-const getRecipesMeta = (request, response) => {
+// return a 200 status code
+const getAllRecipesMeta = (request, response) => {
 	respondJSONMeta(request, response, 200);
 };
 
@@ -45,7 +61,7 @@ const addRecipe = (request, response) => {
 			message: 'Name and age are both required.',
 		};
 
-		if (!bodyParams.name || !bodyParams.ingredients || !bodyParams.instructions) {
+		if (!bodyParams.name || !bodyParams.image || !bodyParams.ingredients || !bodyParams.instructions) {
 			responseJSON.id = 'missingParams';
 			return respondJSON(request, response, 400, responseJSON);
 		}
@@ -60,29 +76,28 @@ const addRecipe = (request, response) => {
 		}
 
 		recipes[bodyParams.name].name = bodyParams.name;
+
+		recipes[bodyParams.name].image = bodyParams.image;
+
 		recipes[bodyParams.name].ingredients = bodyParams.ingredients;
+
 		recipes[bodyParams.name].instructions = bodyParams.instructions;
 
 		if (responseCode === 201) {
-			responseJSON.message = 'Created Successfully';
-			return respondJSON(request, response, responseCode, responseJSON);
+			//responseJSON.message = 'Created Successfully';
+			//responseJSON.message = recipes[bodyParams.name].name;
+			//console.log("hello");
+			//console.log(JSON.stringify(recipes));
+			return respondJSON(request, response, responseCode, recipes);
 		}
 		return respondJSONMeta(request, response, responseCode);
 	});
 };
 
-const notFound = (request, response) => {
-
-};
-
-const notFoundMeta = (request, response) => {
-
-};
-
 module.exports = {
-	getRecipes,
-	notFound,
-	getRecipesMeta,
-	notFoundMeta,
+	getRecipe,
+	getRecipeMeta,
+	getAllRecipes,
+	getAllRecipesMeta,
 	addRecipe
 };

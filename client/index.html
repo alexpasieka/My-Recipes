@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Recipes</title>
+    <!-- Personal Styles -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <!-- Babel CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <!-- ES6->ES5 Transpiled Script -->
+    <script src="transpiledScript.js"></script>
+</head>
+<body>
+
+    <!-- Masthead -->
+    <div id="masthead">
+        <!-- Title -->
+        <h1 id="title">My Recipes</h1>
+        <!-- Add New Recipe Button -->
+        <button id="new-recipe-button">Add New Recipe</button>
+    </div>
+
+    <!-- Saved Recipes -->
+    <div id="recipes"></div>
+
+    <!-- Selected Recipe Modal -->
+    <div id="selected-recipe-modal" class="modal">
+        <!-- Modal Content Container -->
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 id="selected-recipe-name"></h2>
+                <!-- Close Button -->
+                <button id="close-button">Close</button>
+            </div>
+
+            <!-- Left Column -->
+            <div class="modal-left-column">
+                <img id="selected-recipe-image">
+                <div id="selected-recipe-instructions">
+                    <h2>Instructions:</h2>
+                    <p id="instructions"></p>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="modal-right-column">
+                <div id="selected-recipe-ingredients">
+                    <h2>Ingredients:</h2>
+                    <ul id="ingredients"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add New Recipe Modal -->
+    <div id="new-recipe-modal" class="modal">
+        <!-- Modal Content Container -->
+        <div class="modal-content">
+            <!-- New Recipe Form -->
+            <form id="new-recipe-form">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <!-- Submit Button -->
+                    <button type="submit">Submit</button>
+                    <!-- Title -->
+                    <h2>Add New Recipe</h2>
+                    <!-- Cancel Button -->
+                    <button type="reset" id="cancel-button">Cancel</button>
+                </div>
+
+                <!-- Left Column -->
+                <div class="modal-left-column">
+                    <!-- New Recipe Name -->
+                    <div id="new-recipe-name">
+                        <input id="name-field" placeholder="Name" autocomplete="off">
+                    </div>
+
+                    <!-- New Recipe Image -->
+                    <div id="new-recipe-image">
+                        <input id="image-field" placeholder="Image URL" autocomplete="off">
+                    </div>
+
+                    <!-- New Recipe Instructions -->
+                    <div id="new-recipe-instructions">
+                        <textarea id="instructions-field" placeholder="Instructions" autocomplete="off"></textarea>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="modal-right-column">
+                    <!-- New Recipe Ingredients -->
+                    <div id="new-recipe-ingredients">
+                        <textarea id="ingredients-field" placeholder="Ingredients (separate by commas)"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
