@@ -52,6 +52,8 @@ const onRequest = (request, response) => {
 		case 'POST':
 			postStruct[parsedUrl.pathname](request, response);
 			break;
+		default:
+			break;
 	}
 };
 

@@ -44,7 +44,6 @@ const addRecipe = (request, response) => {
 	const body = [];
 
 	request.on('error', (err) => {
-		console.dir(err);
 		response.statusCode = 400;
 		response.end();
 	});
@@ -61,7 +60,8 @@ const addRecipe = (request, response) => {
 			message: 'Name and age are both required.',
 		};
 
-		if (!bodyParams.name || !bodyParams.image || !bodyParams.ingredients || !bodyParams.instructions) {
+		if (!bodyParams.name || !bodyParams.image ||
+			!bodyParams.ingredients || !bodyParams.instructions) {
 			responseJSON.id = 'missingParams';
 			return respondJSON(request, response, 400, responseJSON);
 		}
