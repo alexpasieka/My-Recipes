@@ -43,7 +43,7 @@ const getAllRecipesMeta = (request, response) => {
 const addRecipe = (request, response) => {
 	const body = [];
 
-	request.on('error', (err) => {
+	request.on('error', () => {
 		response.statusCode = 400;
 		response.end();
 	});
@@ -61,7 +61,7 @@ const addRecipe = (request, response) => {
 		};
 
 		if (!bodyParams.name || !bodyParams.image ||
-			!bodyParams.ingredients || !bodyParams.instructions) {
+!bodyParams.ingredients || !bodyParams.instructions) {
 			responseJSON.id = 'missingParams';
 			return respondJSON(request, response, 400, responseJSON);
 		}
